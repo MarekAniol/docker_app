@@ -1,6 +1,5 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from common.errors.dbapi_error_handlers import register_DBAPIError_errors_hadlers
-from common.services.customer_service import add_customer
 from common.models.db_models import Categorie, db
 from common.errors.custom_error_handlers import register_custom_errors_hadlers
 from common.errors.http_error_handlers import register_http_error_handlers

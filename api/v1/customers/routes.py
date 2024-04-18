@@ -1,4 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
+from common.helpers.entity_types import HttpMethodType
+from common.helpers.successful_handlers import db_commit_success
 from common.services.customer_service import add_customer, delete_customer
 
 
@@ -7,7 +9,7 @@ customers_bp = Blueprint("customers",  __name__)
 
 @customers_bp.route("/", methods=["GET"])
 def get_customers():
-    return jsonify({"message": "Customers loaded successful"})
+    return db_commit_success(http_method_type=HttpMethodType.GET)
 
 @customers_bp.route("/", methods=["POST"])
 def add_new_customer():

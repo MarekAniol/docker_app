@@ -3,7 +3,7 @@ from common.helpers.entity_types import HttpMethodType
 from static.messages import SUCCESS_MESSAGE, SUCCESSFUL_ADDED_MESSAGE, SUCCESSFUL_GET_MESSAGE, SUCCESSFUL_DELETE_MESSAGE, SUCCESSFUL_UPDATE_MESSAGE
 
 
-def db_commit_success(entity_type, http_method_type):
+def db_commit_success(http_method_type, entity_type=None):
     def success_get():
         return jsonify({"error": False, "message": SUCCESSFUL_GET_MESSAGE}), 200
     def success_post():

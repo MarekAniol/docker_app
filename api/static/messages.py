@@ -36,7 +36,7 @@ error_messages = {
 # Success messages
 SUCCESS_MESSAGE = "Operation completed successfully."
 SUCCESSFUL_ADDED_MESSAGE = "New {} has been successfully added."
-SUCCESSFUL_GET_MESSAGE = "Got date successfully."
+SUCCESSFUL_GET_MESSAGE = "Got data successfully."
 SUCCESSFUL_DELETE_MESSAGE = "{} deleted successfully."
 SUCCESSFUL_UPDATE_MESSAGE = "{} updated successfully."
 
