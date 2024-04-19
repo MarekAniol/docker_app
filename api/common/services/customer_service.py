@@ -1,4 +1,4 @@
-from common.helpers.valid_required_fields import validate_required_fields
+from common.helpers.validators import validate_matching_ids, validate_required_fields
 from common.models.db_models import Customer, db
 from common.errors.custom_error_handlers import ValidationError , JsonDataError
 from common.logs import loggers as log
@@ -34,8 +34,8 @@ def add_customer(customer_data: Customer):
 
     try:
         db.session.commit()
-        return sh.db_commit_success(EntityType.CUSTOMER, HttpMethodType.POST)
-    except Exception as e:
+        return sh.db_commit_success(HttpMethodType.POST, EntityType.CUSTOMER)
+    except Exception:
         db.session.rollback()
         raise ValidationError(entity_type=EntityType.CUSTOMER)
     
@@ -47,8 +47,37 @@ def delete_customer(customer_id):
     try:   
         db.session.delete(customer)
         db.session.commit()
-        return sh.db_commit_success(EntityType.CUSTOMER, HttpMethodType.DELETE)
+        return sh.db_commit_success(HttpMethodType.DELETE, EntityType.CUSTOMER)
     except ValidationError as e:
         db.session.rollback()       
         raise ValidationError(entity_type=EntityType.CUSTOMER, message=ID_NOT_FOUND, status_code=404)
+    
+def  update_customer_by_id(customer_id, customer_data):
+    customer = Customer.query.get(customer_id)
+    if not customer:
+        log.db_logger.error
+        raise JsonDataError()
+    
+    validate_required_fields(customer_data, ["customer_id", "company_name"])
+    validate_matching_ids(customer_id, customer_data, "customer_id")
    
+    customer.company_name = customer_data.get("company_name", customer.company_name)
+    customer.contact_name = customer_data.get("contact_name", customer.contact_name)
+    customer.contact_title = customer_data.get("contact_title", customer.contact_title)
+    customer.address = customer_data.get("address", customer.address)
+    customer.city = customer_data.get("city", customer.city)
+    customer.region = customer_data.get("region", customer.region)
+    customer.postal_code = customer_data.get("postal_code", customer.postal_code)
+    customer.country = customer_data.get("country", customer.country)
+    customer.phone = customer_data.get("phone", customer.phone)
+    customer.fax = customer_data.get("fax", customer.fax)
+    customer.login = customer_data.get("login", customer.login)
+    customer.password_hash = customer_data.get("password_hash", customer.password_hash)
+    customer.role_id = customer_data.get("role_id", customer.role_id)
+
+    try:   
+        db.session.commit()
+        return sh.db_commit_success(EntityType.CUSTOMER, HttpMethodType.PUT)
+    except ValidationError:
+        db.session.rollback()       
+        raise ValidationError(entity_type=EntityType.CUSTOMER, message=ID_NOT_FOUND, status_code=404)

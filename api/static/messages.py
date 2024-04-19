@@ -10,6 +10,7 @@ UNABLE_TO_SAVE_ERROR = "Unable to save {} to the database. The data is invalid d
 NO_JSON_DATA = "No JSON data in request."
 ID_NOT_FOUND = "{} id not found."
 RECORD_CANNOT_BE_NULL = "Record cannot be null. Missing: {}."
+ID_MISMATCH_ERROR_MESSAGE = "The privided ID does not match the ID in the model. Please verify the IDs and try again."
 
 #DBAPIError messages
 INTERFACE_ERROR = "Connection problem with the database interface."

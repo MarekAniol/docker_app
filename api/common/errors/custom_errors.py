@@ -24,4 +24,3 @@ class JsonDataError(CustomError):
     """Exception raised when there is no JSON data in request."""
     def __init__(self, status_code=400):
         super().__init__(NO_JSON_DATA, status_code,)
-

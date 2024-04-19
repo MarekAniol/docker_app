@@ -9,7 +9,7 @@ def format_error_response(error, status_code=None):
 
     message = error_messages.get(type(error).__name__, getattr(error, 'message', str(error)))
 
-    log_message = LOG_ERROR.format(error.__class__.__name__, message, getattr(error, 'errors', ''))
+    log_message = LOG_ERROR.format(error.__class__.__name__, message, getattr(error, 'errors', '')) + f"{error}"
     
     if status_code >= 500:
         log.app_logger.error(log_message)
