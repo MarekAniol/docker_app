@@ -1,6 +1,6 @@
+from flask import jsonify
 from static.messages import error_messages, LOG_ERROR
 import common.logs.loggers as log
-from flask import jsonify
 
 
 def format_error_response(error, status_code=None):
@@ -9,8 +9,7 @@ def format_error_response(error, status_code=None):
 
     message = error_messages.get(type(error).__name__, getattr(error, 'message', str(error)))
 
-    log_message = LOG_ERROR.format(error.__class__.__name__, message, getattr(error, 'errors', '')) + f"{error}"
-    
+    log_message = LOG_ERROR.format(message, error.__class__.__name__,  getattr(error, 'errors', ''))
     if status_code >= 500:
         log.app_logger.error(log_message)
     else:

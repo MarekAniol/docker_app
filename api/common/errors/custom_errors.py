@@ -1,4 +1,4 @@
-from static.messages import NO_JSON_DATA, UNABLE_TO_SAVE_ERROR
+from static.messages import NO_JSON_DATA, UNABLE_TO_SAVE_ERROR, VALIDATION_STRATEGY_NOT_SET
 from common.helpers.entity_types import EntityType
 
 
@@ -20,7 +20,12 @@ class ValidationError(CustomError):
                 pass
         super().__init__(message, status_code)
 
-class JsonDataError(CustomError):
+class JsonEmptyDataError(CustomError):
     """Exception raised when there is no JSON data in request."""
     def __init__(self, status_code=400):
-        super().__init__(NO_JSON_DATA, status_code,)
+        super().__init__(NO_JSON_DATA, status_code)
+
+class StrategyNotSetError(CustomError):
+    """Exception raised when a required strategy is not set"""
+    def __init__(self):
+        super().__init__(VALIDATION_STRATEGY_NOT_SET)

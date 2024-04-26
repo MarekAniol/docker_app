@@ -1,11 +1,11 @@
+from typing import Optional
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from typing import Optional
 from sqlalchemy import Integer, String, Text
 
 
 class Base(DeclarativeBase):
-  pass
+    pass
 
 db = SQLAlchemy(model_class=Base)
 
